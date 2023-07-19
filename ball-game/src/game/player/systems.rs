@@ -1,8 +1,10 @@
 use crate::{
-    enemy::{components::Enemy, ENEMY_SIZE},
     events::GameOver,
-    score::resources::Score,
-    star::{components::Star, STAR_SIZE},
+    game::{
+        enemy::{components::Enemy, ENEMY_SIZE},
+        score::resources::Score,
+        star::{components::Star, STAR_SIZE},
+    },
     systems::get_bounds,
 };
 
@@ -27,6 +29,12 @@ pub fn spawn_player(
         },
         Player {},
     ));
+}
+
+pub fn despawn_player(mut commands: Commands, player_query: Query<Entity, With<Player>>) {
+    if let Ok(player_entity) = player_query.get_single() {
+        commands.entity(player_entity).despawn();
+    }
 }
 
 pub fn player_movement(

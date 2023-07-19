@@ -1,7 +1,7 @@
 use super::{
     components::Enemy, resources::EnemySpawnTimer, ENEMY_SIZE, ENEMY_SPEED, NUMBER_OF_ENEMIES,
 };
-use crate::systems::get_bounds;
+use crate::{game::star::components::Star, systems::get_bounds};
 use bevy::{prelude::*, window::PrimaryWindow};
 use rand::random;
 
@@ -26,6 +26,12 @@ pub fn spawn_enemies(
                 direction: Vec2::new(random::<f32>(), random::<f32>()).normalize(),
             },
         ));
+    }
+}
+
+pub fn despawn_enemies(mut commands: Commands, enemy_query: Query<Entity, With<Enemy>>) {
+    for enemy_entity in enemy_query.iter() {
+        commands.entity(enemy_entity).despawn();
     }
 }
 
