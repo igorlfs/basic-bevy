@@ -13,10 +13,10 @@ pub fn spawn_camera(mut commands: Commands, window_query: Query<&Window, With<Pr
 pub fn transition_to_game_state(
     keyboard_input: Res<Input<KeyCode>>,
     app_state: Res<State<AppState>>,
-    mut app_state_next_state: ResMut<NextState<AppState>>,
+    mut next_app_state: ResMut<NextState<AppState>>,
 ) {
     if keyboard_input.just_pressed(KeyCode::G) && app_state.get() != &AppState::InGame {
-        app_state_next_state.set(AppState::InGame);
+        next_app_state.set(AppState::InGame);
         println!("Entered AppState::InGame");
     }
 }
@@ -24,12 +24,12 @@ pub fn transition_to_game_state(
 pub fn transition_to_main_menu_state(
     keyboard_input: Res<Input<KeyCode>>,
     app_state: Res<State<AppState>>,
-    mut app_state_next_state: ResMut<NextState<AppState>>,
-    mut simulation_state_next_state: ResMut<NextState<SimulationState>>,
+    mut next_app_state: ResMut<NextState<AppState>>,
+    mut next_simulation_state: ResMut<NextState<SimulationState>>,
 ) {
     if keyboard_input.just_pressed(KeyCode::M) && app_state.get() != &AppState::MainMenu {
-        app_state_next_state.set(AppState::MainMenu);
-        simulation_state_next_state.set(SimulationState::Paused);
+        next_app_state.set(AppState::MainMenu);
+        next_simulation_state.set(SimulationState::Paused);
     }
 }
 

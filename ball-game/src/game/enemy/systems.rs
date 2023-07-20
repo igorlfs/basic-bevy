@@ -1,7 +1,7 @@
 use super::{
     components::Enemy, resources::EnemySpawnTimer, ENEMY_SIZE, ENEMY_SPEED, NUMBER_OF_ENEMIES,
 };
-use crate::{game::star::components::Star, systems::get_bounds};
+use crate::systems::get_bounds;
 use bevy::{prelude::*, window::PrimaryWindow};
 use rand::random;
 

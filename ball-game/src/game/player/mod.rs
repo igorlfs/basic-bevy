@@ -31,15 +31,10 @@ impl Plugin for PlayerPlugin {
         .add_systems(OnEnter(AppState::InGame), spawn_player)
         .add_systems(
             Update,
-            player_movement
-                .in_set(PlayerSystemSet::Movement)
-                .run_if(in_state(AppState::InGame))
-                .run_if(in_state(SimulationState::Running)),
-        )
-        .add_systems(
-            Update,
-            confine_player_movement
-                .in_set(PlayerSystemSet::Confinement)
+            (
+                player_movement.in_set(PlayerSystemSet::Movement),
+                confine_player_movement.in_set(PlayerSystemSet::Confinement),
+            )
                 .run_if(in_state(AppState::InGame))
                 .run_if(in_state(SimulationState::Running)),
         )
